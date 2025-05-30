@@ -13,7 +13,7 @@ def create_output_dir(output_dir:str=None) -> str:
     #すでにあるディレクトリ名で作ろうとした場合は別の名前に。
     while True:
         now = datetime.datetime.now()
-        output_dir = f"output_dir_{now.strftime('%Y%m%d_%H%M%S')}_{now.microsecond:06d}"
+        output_dir = f"log_{now.strftime('%Y%m%d_%H%M%S')}_{now.microsecond:06d}"
         try:
             os.makedirs(output_dir, exist_ok=False)
             break
@@ -54,12 +54,3 @@ def log_init() -> str:
     output_dir = create_output_dir()
     logging_config(output_dir)
     return output_dir
-
-
-
-def myfunc2_in_tool():
-    logger.debug('message as debug')
-    logger.info('message as info')
-    logger.warning('message as warning')
-    logger.error('message as error')
-

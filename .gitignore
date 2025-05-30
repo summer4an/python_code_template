@@ -178,3 +178,4 @@ cython_debug/
 .vscode
 *gomi*
 output_dir_*
+log_*/

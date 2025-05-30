@@ -4,19 +4,10 @@ logger = getLogger(__name__)
 from tool import log_init
 output_dir = log_init() #他のツールをimportした際にloggerが使われると記録されないので早々に実行。
 
-import sys,os,datetime,subprocess
-from tool import myfunc2_in_tool
+import sys,os,datetime,subprocess,shutil
 
 
-
-def myfunc1():
-    logger.debug('message as debug')
-    logger.info('message as info')
-    logger.warning('message as warning')
-    logger.error('message as error')
-
-
-def init():
+def init(output_dir:str):
     if os.path.isdir('.git')==False:
         print('this project is not managed with git.')
     else:
@@ -29,23 +20,21 @@ def init():
         exec_and_show('git --no-pager diff -p')
         logger.info('*****show git info end*****')
 
+    shutil.copytree('./code/', output_dir+'/code', copy_function=shutil.copy2)
 
 def main():
     start_time = datetime.datetime.now()
     logger.info(f'program start. sys.args:{sys.argv}')
-    init()
+    init(output_dir)
 
 
     logger.debug('message as debug')
     logger.info('message as info')
     logger.warning('message as warning')
     logger.error('message as error')
-    myfunc1()
-    myfunc2_in_tool()
 
 
     logger.info(f'program finished. elapsed:{datetime.datetime.now()-start_time}')
-
 
 if __name__ == '__main__':
     main()
